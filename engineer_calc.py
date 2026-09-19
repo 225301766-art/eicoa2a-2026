@@ -31,43 +31,46 @@ def main():
  
         choice = input("Select an option: ")
         
-        if choice == "1": 
-            voltage = float(input("Enter voltage (V): ")) 
-            current = float(input("Enter current (A): ")) 
- 
-            resistance = calc_resistance(voltage, current) 
- 
-            print("Resistance =", resistance, "ohms") 
+        if choice == "1":
             
-        elif choice == "2": 
-            direction = input("Enter conversion (mm_to_in or in_to_mm): ") 
+            voltage = float(input("Enter voltage (V): "))
+            current = float(input("Enter current (A): "))
+
+            try:
+                resistance = calc_resistance(voltage, current)
+                print("Resistance =", resistance, "ohms")
+
+            except ZeroDivisionError:
+                print("Error: Current cannot be zero.")
+
+        elif choice == "2":
+            direction = input("Enter conversion (mm_to_in or in_to_mm): ")
+            value = float(input("Enter the measurement: "))
+
+            if direction == "mm_to_in":
+                print("Converted value:", mm_to_inches(value), "inches")
+
+            elif direction == "in_to_mm":
+                print("Converted value:", inches_to_mm(value), "mm")
+
+            else:
+                print("Invalid conversion option.")
+        
+        elif choice == "3":
+            running = False
+        print("Program closed.")
+
+    else:
+        print("Invalid menu option.") 
  
-            value = float(input("Enter the measurement: ")) 
- 
-            if direction == "mm_to_in": 
-                print("Converted value:", mm_to_inches(value), "inches") 
- 
-            elif direction == "in_to_mm": 
-                print("Converted value:", inches_to_mm(value), "mm") 
- 
-            else: 
-                print("Invalid conversion option.") 
- 
-        elif choice == "3": 
-            running = False 
-            print("Program closed.") 
- 
-        else: 
-            print("Invalid menu option.")
-            
-  
-            
+show_default()
+def show_default(): 
+ DEFAULT_CURRENT = 1.0 
+ print("Inside function:", DEFAULT_CURRENT)       
+             
 if __name__ == "__main__": 
     main()
     print(calc_resistance.__doc__) 
 print(mm_to_inches.__doc__) 
 
-show_default()
-def show_default(): 
- DEFAULT_CURRENT = 1.0 
- print("Inside function:", DEFAULT_CURRENT)
+
